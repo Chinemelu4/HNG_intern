@@ -3,26 +3,25 @@ import datetime
 
 app = Flask(__name__)
 
-@app.route('/info', methods=['GET'])
+@app.route('/', methods=['GET'])
 def get_info():
     # Get query parameters
-    name = request.args.get('name')
-    id = request.args.get('id')
+    slack_name = request.args.get('slack_name')
+    track = request.args.get('track')
 
-    # Calculate current day of the week and UTC time
+
     current_day = datetime.datetime.now().strftime('%A')
     utc_time = datetime.datetime.utcnow().strftime('%Y-%m-%dT%H:%M:%SZ')
 
-    # Construct GitHub URLs
-    github_file_url = f'https://github.com/username/repo/blob/main/{id}.ext'
-    github_repo_url = 'https://github.com/username/repo'
+    github_file_url = 'https://github.com/Chinemelu4/HNG_intern/blob/main/stage1.py'
+    github_repo_url = 'https://github.com/Chinemelu4/HNG_intern'
 
-    # Prepare JSON response
+
     response_data = {
-        'slack_name': name,
+        'slack_name': slack_name,
         'current_day': current_day,
         'utc_time': utc_time,
-        'track': 'backend',
+        'track': track,
         'github_file_url': github_file_url,
         'github_repo_url': github_repo_url,
         'status_code': 200
@@ -32,3 +31,4 @@ def get_info():
 
 if __name__ == '__main__':
     app.run(debug=True)
+
